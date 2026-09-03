@@ -24,7 +24,7 @@ def build_pyinstaller():
 
     print(f"\n🔨 构建 {system} {machine} 版本...")
 
-    # PyInstaller 配置
+    # PyInstaller 配置 - 精简打包，避免超过 2GB
     run(f"""pyinstaller --clean --noconfirm \
         --name imgsearch-minimal \
         --add-data "templates:templates" \
@@ -35,9 +35,17 @@ def build_pyinstaller():
         --hidden-import PIL \
         --hidden-import flask \
         --hidden-import flask_cors \
-        --collect-all open_clip \
-        --collect-all torch \
-        --collect-all torchvision \
+        --collect-submodules open_clip \
+        --copy-metadata torch \
+        --copy-metadata torchvision \
+        --copy-metadata open-clip-torch \
+        --exclude-module matplotlib \
+        --exclude-module IPython \
+        --exclude-module jupyter \
+        --exclude-module notebook \
+        --exclude-module pandas \
+        --exclude-module scipy \
+        --exclude-module pytest \
         app.py""")
 
     # 下载内置模型到 dist
