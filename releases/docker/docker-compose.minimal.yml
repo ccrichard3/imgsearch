@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  imgsearch:
+    image: ghcr.io/ccrichard3/imgsearch:minimal
+    container_name: imgsearch
+    ports:
+      - "57860:57860"
+    volumes:
+      # 图片库目录（改为你的实际路径）
+      - /vol1/photo:/library:ro
+      # 索引与缩略图持久化
+      - imgsearch-data:/root/.imgsearch
+      # 额外模型缓存（ViT-B-32 已内置在镜像中）
+      - huggingface-cache:/root/.cache/huggingface
+    environment:
+      # 国内镜像加速（直连 HuggingFace 的用户可删除此行或设为空）
+      - HF_ENDPOINT=https://hf-mirror.com
+      - PYTHONUNBUFFERED=1
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: '4'
+          memory: 4G
+
+volumes:
+  imgsearch-data:
+  huggingface-cache:

@@ -9,7 +9,7 @@ docker run -d \
   -v /你的图片路径:/library:ro \
   -v imgsearch-data:/root/.imgsearch \
   -v huggingface-cache:/root/.cache/huggingface \
-  ghcr.io/你的GitHub用户名/imgsearch:minimal
+  ghcr.io/ccrichard3/imgsearch:minimal
 ```
 
 访问 `http://localhost:57860`
@@ -19,7 +19,7 @@ docker run -d \
 ## 📦 NAS 一键部署
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/你的用户名/imgsearch/main/deploy_nas_minimal.sh | bash
+curl -fsSL https://raw.githubusercontent.com/ccrichard3/imgsearch/main/deploy_nas_minimal.sh | bash
 ```
 
 ---
@@ -30,7 +30,7 @@ curl -fsSL https://raw.githubusercontent.com/你的用户名/imgsearch/main/depl
 
 ```bash
 # 下载可执行文件
-wget https://github.com/你的用户名/imgsearch/releases/latest/download/imgsearch-minimal-$(uname -s)-$(uname -m).tar.gz
+wget https://github.com/ccrichard3/imgsearch/releases/latest/download/imgsearch-minimal-$(uname -s)-$(uname -m).tar.gz
 
 # 解压运行
 tar xzf imgsearch-minimal-*.tar.gz
@@ -40,7 +40,7 @@ cd imgsearch-minimal
 
 ### Windows
 
-1. 下载 [imgsearch-minimal-Windows-x86_64.zip](https://github.com/你的用户名/imgsearch/releases/latest)
+1. 下载 [imgsearch-minimal-Windows-x86_64.zip](https://github.com/ccrichard3/imgsearch/releases/latest)
 2. 解压后双击 `imgsearch-minimal.exe`
 3. 浏览器访问 `http://localhost:57860`
 

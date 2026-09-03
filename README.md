@@ -25,7 +25,7 @@ docker run -d \
   -v /你的图片路径:/library:ro \
   -v imgsearch-data:/root/.imgsearch \
   -e HF_ENDPOINT=https://hf-mirror.com \
-  ghcr.io/你的用户名/imgsearch:minimal
+  ghcr.io/ccrichard3/imgsearch:minimal
 ```
 
 访问 `http://localhost:57860`
@@ -34,7 +34,7 @@ docker run -d \
 
 ```bash
 # 1. 下载配置文件
-curl -O https://raw.githubusercontent.com/你的用户名/imgsearch/main/docker-compose.minimal.yml
+curl -O https://raw.githubusercontent.com/ccrichard3/imgsearch/main/docker-compose.minimal.yml
 
 # 2. 修改图片路径
 vim docker-compose.minimal.yml
@@ -48,12 +48,12 @@ docker-compose -f docker-compose.minimal.yml up -d
 
 ```bash
 # 下载并运行部署脚本
-curl -fsSL https://raw.githubusercontent.com/你的用户名/imgsearch/main/deploy_nas_minimal.sh | bash
+curl -fsSL https://raw.githubusercontent.com/ccrichard3/imgsearch/main/deploy_nas_minimal.sh | bash
 ```
 
 ### 方式 4：下载可执行文件（免 Python 环境）
 
-前往 [Releases](https://github.com/你的用户名/imgsearch/releases) 下载对应平台：
+前往 [Releases](https://github.com/ccrichard3/imgsearch/releases) 下载对应平台：
 
 - **macOS (Apple Silicon)**: `imgsearch-minimal-Darwin-arm64.tar.gz`
 - **macOS (Intel)**: `imgsearch-minimal-Darwin-x86_64.tar.gz`
@@ -207,7 +207,7 @@ docker-compose down -v
 ### 最小版本打包（macOS）
 
 ```bash
-git clone https://github.com/你的用户名/imgsearch.git
+git clone https://github.com/ccrichard3/imgsearch.git
 cd imgsearch
 ./build_minimal.sh
 ```
@@ -221,8 +221,8 @@ cd imgsearch
 docker build -f Dockerfile.minimal -t imgsearch:minimal .
 
 # 推送到 GitHub Container Registry
-docker tag imgsearch:minimal ghcr.io/你的用户名/imgsearch:minimal
-docker push ghcr.io/你的用户名/imgsearch:minimal
+docker tag imgsearch:minimal ghcr.io/ccrichard3/imgsearch:minimal
+docker push ghcr.io/ccrichard3/imgsearch:minimal
 ```
 
 ---

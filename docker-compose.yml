@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  imgsearch:
+    build: .
+    container_name: imgsearch
+    ports:
+      - "57860:57860"
+    volumes:
+      # 图片库目录（改为你的实际路径）
+      - /vol1/photo:/library:ro
+      # 索引与缩略图持久化
+      - ./data/imgsearch:/root/.imgsearch
+      # 模型缓存持久化（首次启动会下载 ~2GB）
+      - ./data/huggingface:/root/.cache/huggingface
+    environment:
+      - PYTHONUNBUFFERED=1
+    restart: unless-stopped
+    # CPU only（NAS 一般无 GPU）
+    deploy:
+      resources:
+        limits:
+          cpus: '4'
+          memory: 8G

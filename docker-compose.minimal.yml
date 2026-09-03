@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   imgsearch:
-    image: ghcr.io/你的用户名/imgsearch:minimal
+    image: ghcr.io/ccrichard3/imgsearch:minimal
     container_name: imgsearch
     ports:
       - "57860:57860"
