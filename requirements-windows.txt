@@ -1,0 +1,26 @@
+# Windows 专用依赖（Python 3.11，CPU 版本）
+
+# 向量模型（CPU 版本）
+torch>=2.2.0
+open_clip_torch>=2.30.0
+numpy>=1.26.0
+
+# 图片解码
+pillow>=10.3.0
+psd-tools>=1.9.31
+pillow-heif>=0.16.0
+
+# SigLIP2 tokenizer
+transformers>=4.40.0
+sentencepiece>=0.2.0
+
+# Web 服务
+fastapi>=0.110.0
+uvicorn>=0.29.0
+python-multipart>=0.0.9
+
+# 可选：CUDA 加速（需 NVIDIA 显卡）
+# 取消下面注释并删除上面的 torch 行：
+# --index-url https://download.pytorch.org/whl/cu121
+# torch>=2.2.0+cu121
+# torchvision>=0.17.0+cu121

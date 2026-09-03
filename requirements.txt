@@ -1,0 +1,21 @@
+# imgsearch 依赖（Apple Silicon / macOS，Python 3.11）
+# torch 在 macOS arm64 上默认自带 MPS 后端，直接 pip 安装即可。
+
+# 向量模型
+torch>=2.2
+open_clip_torch>=2.30
+numpy>=1.26
+
+# 图片解码
+pillow>=10.3
+psd-tools>=1.9.31
+pillow-heif>=0.16
+
+# SigLIP2 模型的 tokenizer 依赖 transformers + sentencepiece
+transformers>=4.40
+sentencepiece>=0.2
+
+# 本地 Web 服务（自研前端，替代 Gradio：无 CDN / 无遥测 / 离线可用）
+fastapi>=0.110
+uvicorn>=0.29
+python-multipart>=0.0.9
