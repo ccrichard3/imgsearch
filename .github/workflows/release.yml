@@ -62,9 +62,14 @@ jobs:
             --hidden-import PIL \
             --hidden-import flask \
             --hidden-import flask_cors \
-            --collect-all open_clip \
-            --collect-all torch \
-            --collect-all torchvision \
+            --collect-submodules open_clip \
+            --exclude-module matplotlib \
+            --exclude-module pandas \
+            --exclude-module jupyter \
+            --exclude-module notebook \
+            --exclude-module IPython \
+            --exclude-module scipy \
+            --exclude-module numpy.testing \
             app.py
 
       - name: Build with PyInstaller (Windows)
@@ -79,9 +84,14 @@ jobs:
             --hidden-import PIL `
             --hidden-import flask `
             --hidden-import flask_cors `
-            --collect-all open_clip `
-            --collect-all torch `
-            --collect-all torchvision `
+            --collect-submodules open_clip `
+            --exclude-module matplotlib `
+            --exclude-module pandas `
+            --exclude-module jupyter `
+            --exclude-module notebook `
+            --exclude-module IPython `
+            --exclude-module scipy `
+            --exclude-module numpy.testing `
             app.py
 
       - name: Package (Unix)
