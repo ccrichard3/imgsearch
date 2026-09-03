@@ -54,8 +54,7 @@ jobs:
         run: |
           pyinstaller --clean --noconfirm \
             --name imgsearch-minimal \
-            --add-data "templates:templates" \
-            --add-data "static:static" \
+            --add-data "web:web" \
             --hidden-import open_clip \
             --hidden-import torch \
             --hidden-import torchvision \
@@ -72,8 +71,7 @@ jobs:
         run: |
           pyinstaller --clean --noconfirm `
             --name imgsearch-minimal `
-            --add-data "templates;templates" `
-            --add-data "static;static" `
+            --add-data "web;web" `
             --hidden-import open_clip `
             --hidden-import torch `
             --hidden-import torchvision `
