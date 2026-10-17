@@ -60,3 +60,8 @@ docker-compose.override.yml
 # Local config
 .env
 .env.local
+
+# traffic chart (committed on purpose)
+!/scripts/
+!/traffic/
+!/.github/
