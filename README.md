@@ -1,22 +1,26 @@
-# imgsearch 最小版本
+# imgsearch
 
-轻量级本地图片搜索工具 —— 以图搜图 + 文字搜图
+![访问量](traffic/views.svg)
 
-## ✨ 特性
+一个跑在自己机器上的图片搜索工具。给它一个文件夹，它就能让你用**图片**或者**一句话**去搜。
 
-- 🔍 **向量检索**：CLIP/SigLIP2 模型，支持以图搜图和文字搜图
-- 🌍 **原生多语言**：中英日韩等，无需翻译
-- 🚀 **增量索引**：只处理新增/改动图片，自动剔除已删除
-- 📦 **最小版本**：内置轻量模型（~340MB），其他模型按需下载
-- 🌐 **国内加速**：自动检测并使用 HuggingFace 镜像
-- 🖼️ **格式全面**：JPG/PNG/HEIC/PSD/WEBP 等 20+ 格式
-- 🔒 **完全本地**：图片不外传，数据存本地
+不上传、不联网（除了第一次下模型），索引就放在本地。
 
----
+- 丢一张图进去 → 找相似的
+- 打一句「海边的日落」→ 也能找出来
+- 中文、英文、日文、韩文都能直接搜，不用先翻译
 
-## 📥 快速开始
+## 为什么是它
 
-### 方式 1：Docker（推荐，一行命令）
+- **真的是本地**：图片不出机器，索引在 `~/.imgsearch/`
+- **增量索引**：只处理新增和改动的图，删掉的会自动从索引里剔除
+- **格式管够**：JPG、PNG、HEIC、PSD、WEBP 等 20 多种
+- **内置轻量模型**：最小版本自带 ViT-B-32（约 340MB），开箱就能用
+- **国内友好**：自动检测并使用 HuggingFace 镜像
+
+## 跑起来
+
+### 方式一：Docker 一行命令（推荐）
 
 ```bash
 docker run -d \
@@ -28,220 +32,79 @@ docker run -d \
   ghcr.io/ccrichard3/imgsearch:minimal
 ```
 
-访问 `http://localhost:57860`
+然后打开 `http://localhost:57860`。
 
-### 方式 2：Docker Compose
+### 方式二：docker compose
 
 ```bash
-# 1. 下载配置文件
 curl -O https://raw.githubusercontent.com/ccrichard3/imgsearch/main/docker-compose.minimal.yml
-
-# 2. 修改图片路径
-vim docker-compose.minimal.yml
-# 改为: - /你的图片路径:/library:ro
-
-# 3. 启动
+vim docker-compose.minimal.yml   # 把 - /你的图片路径:/library:ro 改掉
 docker-compose -f docker-compose.minimal.yml up -d
 ```
 
-### 方式 3：NAS 一键部署
+### 方式三：NAS 一键部署
 
 ```bash
-# 下载并运行部署脚本
 curl -fsSL https://raw.githubusercontent.com/ccrichard3/imgsearch/main/deploy_nas_minimal.sh | bash
 ```
 
-### 方式 4：下载可执行文件（免 Python 环境）
+### 方式四：直接下可执行文件
 
-前往 [Releases](https://github.com/ccrichard3/imgsearch/releases) 下载对应平台：
+不想装 Python 的话，去 [Releases](https://github.com/ccrichard3/imgsearch/releases) 下对应平台的包：
 
-- **macOS (Apple Silicon)**: `imgsearch-minimal-Darwin-arm64.tar.gz`
-- **macOS (Intel)**: `imgsearch-minimal-Darwin-x86_64.tar.gz`
-- **Linux (x86_64)**: `imgsearch-minimal-Linux-x86_64.tar.gz`
-- **Windows (x64)**: `imgsearch-minimal-Windows-x86_64.zip`
+| 平台 | 文件 |
+|---|---|
+| macOS (Apple Silicon) | `imgsearch-minimal-Darwin-arm64.tar.gz` |
+| macOS (Intel) | `imgsearch-minimal-Darwin-x86_64.tar.gz` |
+| Linux (x86_64) | `imgsearch-minimal-Linux-x86_64.tar.gz` |
+| Windows (x64) | `imgsearch-minimal-Windows-x86_64.zip` |
 
-解压后直接运行：
-```bash
-# macOS/Linux
-./imgsearch-minimal
+解压后直接跑 `./imgsearch-minimal`（Windows 是 `imgsearch-minimal.exe`）。
 
-# Windows
-imgsearch-minimal.exe
-```
+## 模型怎么选
 
----
+内置的 ViT-B-32 够快够轻，日常用没问题。想要更准的可以换：
 
-## 🎯 内置模型
-
-**ViT-B-32** - 最快最轻（~340MB）
-- 首次启动即可使用
-- 适合快速体验和日常使用
-- 检索速度最快，内存占用最小
-
-## 📊 可选模型（按需下载）
-
-| 模型 | 大小 | 速度 | 质量 | 适用场景 |
-|------|------|------|------|---------|
-| **ViT-B-32** ⭐ | ~340MB | 最快 | 良好 | 日常使用（已内置） |
-| **ViT-B-16-SigLIP2-256** 🔥 | ~350MB | 快 | 优秀 | 推荐，多语言强 |
-| **ViT-L-16-SigLIP2-384** | ~1.2GB | 中 | 很强 | 高精度需求 |
+| 模型 | 大小 | 速度 | 质量 | 适合 |
+|---|---|---|---|---|
+| **ViT-B-32** ⭐ | ~340MB | 最快 | 良好 | 日常（已内置） |
+| **ViT-B-16-SigLIP2-256** 🔥 | ~350MB | 快 | 优秀 | 多语言场景，推荐 |
+| **ViT-L-16-SigLIP2-384** | ~1.2GB | 中 | 很强 | 要高精度 |
 | **ViT-SO400M-16-SigLIP2-384** | ~1.8GB | 慢 | 最强 | 专业用途 |
-| **ViT-L-14** | ~890MB | 中 | 优秀 | CLIP 经典（英文强） |
+| **ViT-L-14** | ~890MB | 中 | 优秀 | CLIP 经典，英文强 |
 
-### 下载其他模型
+换模型最简单的办法是打开网页点「设置」，选一个，它会自己下（国内自动走镜像）。
 
-**方式 1：网页切换（推荐）**
-1. 访问 `http://localhost:57860`
-2. 点击「设置」
-3. 选择模型并切换
-4. 自动下载（国内自动使用镜像加速）
+模型缓存放在：
 
-**方式 2：可执行文件版本**
-```bash
-# 运行附带的下载脚本
-./download_models.sh
-```
+- macOS / Linux：`~/.cache/huggingface/hub/`
+- Windows：`%USERPROFILE%\.cache\huggingface\hub\`
+- Docker：`huggingface-cache` 这个 volume
 
-**方式 3：手动下载（离线环境）**
-```bash
-# 设置镜像（国内用户）
-export HF_ENDPOINT=https://hf-mirror.com
+想给离线机器用，把这个目录整个拷过去就行。
 
-# 下载指定模型
-python3 -c "
-import open_clip
-model, _, preprocess = open_clip.create_model_and_transforms(
-    'ViT-B-16-SigLIP2-256', 
-    pretrained='webli'
-)
-print('✓ 下载完成')
-"
-```
+## 数据在哪
 
----
+- 索引：`~/.imgsearch/cache__<模型名>.pkl`
+- 缩略图：`~/.imgsearch/thumbs/`
+- 配置：`~/.imgsearch/config.json`
 
-## 🌐 国内网络优化
+删掉 `~/.imgsearch/` 就等于清空重建。
 
-### 自动加速
+## 常见问题
 
-Docker 版本默认启用镜像加速（`HF_ENDPOINT=https://hf-mirror.com`）
+**第一次启动很慢？**
+内置模型已经打包进去了，启动是秒开的。只有切换别的模型时才需要联网下一次。
 
-### 手动配置
+**模型下不下来？**
+国内记得设 `HF_ENDPOINT=https://hf-mirror.com`。
+
+**端口冲突？**
+改映射就行，比如 `-p 8080:57860`。
+
+**镜像拉取慢？**
 
 ```bash
-# macOS/Linux
-export HF_ENDPOINT=https://hf-mirror.com
-
-# Windows (PowerShell)
-$env:HF_ENDPOINT="https://hf-mirror.com"
-
-# Windows (CMD)
-set HF_ENDPOINT=https://hf-mirror.com
-```
-
-### 模型存放位置
-
-- **macOS/Linux**: `~/.cache/huggingface/hub/`
-- **Windows**: `%USERPROFILE%\.cache\huggingface\hub\`
-- **Docker**: Volume `huggingface-cache`
-
-可在机器间拷贝此目录以避免重复下载
-
----
-
-## 🛠️ 常用命令
-
-### Docker 管理
-
-```bash
-# 查看日志
-docker logs -f imgsearch
-
-# 重启服务
-docker restart imgsearch
-
-# 停止服务
-docker stop imgsearch
-
-# 删除容器（数据保留在 volume 中）
-docker rm -f imgsearch
-
-# 删除数据
-docker volume rm imgsearch-data huggingface-cache
-```
-
-### Docker Compose 管理
-
-```bash
-# 查看日志
-docker-compose logs -f
-
-# 重启
-docker-compose restart
-
-# 停止
-docker-compose stop
-
-# 删除（保留数据）
-docker-compose down
-
-# 删除（含数据）
-docker-compose down -v
-```
-
----
-
-## 📁 数据存储
-
-- **索引数据**: `~/.imgsearch/cache__<模型名>.pkl`
-- **缩略图**: `~/.imgsearch/thumbs/`
-- **配置**: `~/.imgsearch/config.json`
-- **模型缓存**: `~/.cache/huggingface/`
-
-删除 `~/.imgsearch/` 可清空索引重建
-
----
-
-## 🔧 从源码构建
-
-### 最小版本打包（macOS）
-
-```bash
-git clone https://github.com/ccrichard3/imgsearch.git
-cd imgsearch
-./build_minimal.sh
-```
-
-产物：`dist/imgsearch-minimal/`（~2GB）
-
-### Docker 镜像构建
-
-```bash
-# 最小版本（~2GB 镜像）
-docker build -f Dockerfile.minimal -t imgsearch:minimal .
-
-# 推送到 GitHub Container Registry
-docker tag imgsearch:minimal ghcr.io/ccrichard3/imgsearch:minimal
-docker push ghcr.io/ccrichard3/imgsearch:minimal
-```
-
----
-
-## ❓ 常见问题
-
-### Q: 首次启动很慢？
-A: 内置模型已打包，启动秒开。切换其他模型时需联网下载一次。
-
-### Q: 模型下载失败？
-A: 国内用户确保已设置 `HF_ENDPOINT=https://hf-mirror.com`
-
-### Q: 端口冲突？
-A: 修改端口映射：`-p 8080:57860`（左侧改为你的端口）
-
-### Q: Docker 镜像拉取慢？
-A: 
-```bash
-# 配置 Docker 镜像加速
 sudo mkdir -p /etc/docker
 sudo tee /etc/docker/daemon.json <<EOF
 {
@@ -251,50 +114,45 @@ EOF
 sudo systemctl restart docker
 ```
 
-### Q: 如何切换模型？
-A: 网页「设置」-> 选择模型 -> 切换（首次自动下载）
+## 性能大概什么样
 
-### Q: 离线环境如何使用？
-A: 
-1. 联网环境运行一次（自动缓存模型）
-2. 拷贝 `~/.cache/huggingface/` 到离线机器
-3. 离线机器正常使用
+索引 1 万张图：
 
----
+- Apple Silicon (MPS)：约 5 分钟
+- Linux + NVIDIA GPU：约 8 分钟
+- NAS (Intel CPU)：约 20 分钟
+- Windows (CPU)：约 15 分钟
 
-## 📊 性能参考
+搜索响应：MPS 约 0.5 秒，CUDA 约 0.8 秒，纯 CPU 约 2 秒。
 
-### 索引速度（1万张图片）
+## 自己构建
 
-- macOS (Apple Silicon MPS): ~5 分钟
-- Linux (NVIDIA GPU): ~8 分钟
-- NAS (Intel CPU): ~20 分钟
-- Windows (CPU): ~15 分钟
+```bash
+git clone https://github.com/ccrichard3/imgsearch.git
+cd imgsearch
+./build_minimal.sh          # 产物在 dist/imgsearch-minimal/，约 2GB
+```
 
-### 搜索响应
+Docker 镜像：
 
-- macOS (MPS): ~0.5 秒
-- Linux (CUDA): ~0.8 秒
-- NAS/Windows (CPU): ~2 秒
+```bash
+docker build -f Dockerfile.minimal -t imgsearch:minimal .
+docker tag imgsearch:minimal ghcr.io/ccrichard3/imgsearch:minimal
+docker push ghcr.io/ccrichard3/imgsearch:minimal
+```
 
----
+## 相关链接
 
-## 🔗 相关链接
+- [完整版说明](./README.full.md)（含开发指南）
+- [Windows 部署](./DEPLOY_WINDOWS.md)
+- [模型详细说明](./MODELS.md)
 
-- [完整版 README](./README.full.md)（包含开发指南）
-- [Windows 部署文档](./DEPLOY_WINDOWS.md)
-- [模型详细说明](https://github.com/mlfoundations/open_clip)
+## 许可证
 
----
+MIT
 
-## 📝 许可证
+## 致谢
 
-MIT License
-
----
-
-## 🙏 致谢
-
-- [OpenCLIP](https://github.com/mlfoundations/open_clip) - CLIP 模型实现
-- [HuggingFace](https://huggingface.co/) - 模型托管
-- [hf-mirror.com](https://hf-mirror.com/) - 国内镜像加速
+- [OpenCLIP](https://github.com/mlfoundations/open_clip) —— CLIP 模型实现
+- [HuggingFace](https://huggingface.co/) —— 模型托管
+- [hf-mirror.com](https://hf-mirror.com/) —— 国内镜像加速
