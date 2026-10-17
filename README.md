@@ -1,7 +1,5 @@
 # imgsearch
 
-![访问量](traffic/views.svg)
-
 一个跑在自己机器上的图片搜索工具。给它一个文件夹，它就能让你用**图片**或者**一句话**去搜。
 
 不上传、不联网（除了第一次下模型），索引就放在本地。
@@ -143,8 +141,9 @@ docker push ghcr.io/ccrichard3/imgsearch:minimal
 
 ## 相关链接
 
-- [完整版说明](./README.full.md)（含开发指南）
-- [Windows 部署](./DEPLOY_WINDOWS.md)
+- [快速上手](./QUICK_START.md)
+- [Windows 部署](./releases/windows/DEPLOY_WINDOWS.md)
+- [部署指南](./DEPLOY.md)
 - [模型详细说明](./MODELS.md)
 
 ## 许可证
@@ -156,3 +155,13 @@ MIT
 - [OpenCLIP](https://github.com/mlfoundations/open_clip) —— CLIP 模型实现
 - [HuggingFace](https://huggingface.co/) —— 模型托管
 - [hf-mirror.com](https://hf-mirror.com/) —— 国内镜像加速
+
+## Star 趋势
+
+<a href="https://www.star-history.com/#ccrichard3/imgsearch&Date">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=ccrichard3/imgsearch&type=date&theme=dark&legend=top-left" />
+    <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=ccrichard3/imgsearch&type=date&legend=top-left" />
+    <img alt="Star History Chart" src="https://api.star-history.com/chart?repos=ccrichard3/imgsearch&type=date&legend=top-left" />
+  </picture>
+</a>
