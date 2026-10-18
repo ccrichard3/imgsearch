@@ -156,10 +156,10 @@ MIT
 - [HuggingFace](https://huggingface.co/) —— 模型托管
 - [hf-mirror.com](https://hf-mirror.com/) —— 国内镜像加速
 
-## 访问量
+## 使用趋势
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="traffic/views-dark.svg" />
   <source media="(prefers-color-scheme: light)" srcset="traffic/views.svg" />
-  <img alt="访问量" src="traffic/views.svg" />
+  <img alt="使用趋势" src="traffic/views.svg" />
 </picture>
