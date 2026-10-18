@@ -156,12 +156,10 @@ MIT
 - [HuggingFace](https://huggingface.co/) —— 模型托管
 - [hf-mirror.com](https://hf-mirror.com/) —— 国内镜像加速
 
-## Star 趋势
+## 访问量
 
-<a href="https://www.star-history.com/#ccrichard3/imgsearch&Date">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=ccrichard3/imgsearch&type=date&theme=dark&legend=top-left" />
-    <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=ccrichard3/imgsearch&type=date&legend=top-left" />
-    <img alt="Star History Chart" src="https://api.star-history.com/chart?repos=ccrichard3/imgsearch&type=date&legend=top-left" />
-  </picture>
-</a>
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="traffic/views-dark.svg" />
+  <source media="(prefers-color-scheme: light)" srcset="traffic/views.svg" />
+  <img alt="访问量" src="traffic/views.svg" />
+</picture>
